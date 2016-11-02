@@ -1,0 +1,67 @@
+<!-- Imports polymer -->
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-autogrow-textarea/iron-autogrow-textarea.html">
+
+<!-- Mermaid -->
+<link rel="stylesheet" href="../mermaid/dist/mermaid.css">
+<script src="../mermaid/dist/mermaidAPI.min.js"></script>
+
+<!--
+Render diagrams using Mermaid
+
+@demo
+-->
+
+<dom-module id="mermaid-element">
+  <template>
+    <span id="output"></span>
+    <br>
+    <iron-autogrow-textarea value="{{graph::input}}">
+    </iron-autogrow-textarea>
+  </template>
+</dom-module>
+
+<!-- Registers custom element -->
+<script>
+  mermaidAPI.initialize({
+    startOnLoad: false,
+  });
+  mermaidAPI.parseError = (err) => {
+    console.log(err);
+    this.$.output.innerHTML = err;
+  }
+
+  Polymer({
+    is: 'mermaid-element',
+    properties: {
+
+      /**
+       * Graph declaration
+       */
+      graph: {
+        type: String,
+        observer: 'render'
+      },
+    },
+
+    attached: function() {
+      this.render(this.graph);
+    },
+
+    /**
+     * Manually render the formula
+     */
+    render: function() {
+      if (this.graph === undefined) {
+        return;
+      }
+
+      mermaidAPI.render('output', this.graph.replace('\\n', '\n'),
+          (svgCode) => {
+            console.log(this.$.output)
+            this.$.output.innerHTML = svgCode;
+          });
+    }
+  });
+</script>
+
