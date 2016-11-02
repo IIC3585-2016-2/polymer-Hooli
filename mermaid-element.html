@@ -1,0 +1,60 @@
+<!-- Imports polymer -->
+<link rel="import" href="../polymer/polymer.html">
+
+<!-- Mermaid -->
+<link rel="stylesheet" href="../mermaid/dist/mermaid.css">
+<script src="../mermaid/dist/mermaidAPI.min.js"></script>
+
+<!--
+Render diagrams using Mermaid
+
+@demo
+-->
+
+<dom-module id="mermaid-element">
+  <template>
+    <div id="output"></div>
+  </template>
+</dom-module>
+
+<!-- Registers custom element -->
+<script>
+  const element = document.getElementById('output');
+  Polymer({
+    is: 'mermaid-element',
+    properties: {
+
+      /**
+       * Graph declaration
+       */
+      graph: {
+        type: String,
+        observer: 'render'
+      },
+    },
+
+    attached: function() {
+      mermaidAPI.initialize({
+        startOnLoad: false,
+				//cloneCssStyles: true,
+      });
+      mermaidAPI.parseError = (err) => {
+        console.log(err);
+        this.$.output.innerHTML = 'ERROR';
+      }
+
+      this.render(this.graph);
+    },
+
+    render: function() {
+      if (this.graph === undefined) {
+        return;
+      }
+      mermaidAPI.render('output', this.graph.replace('\\n', '\n'),
+					(svgCode) => {
+						this.$.output.innerHTML = svgCode;
+					});
+    }
+  });
+</script>
+

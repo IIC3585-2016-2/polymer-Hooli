@@ -1,0 +1,21 @@
+mermaid-edit {
+	padding: 0;
+	margin: 0;
+	height: 1000px;
+
+	display: flex;
+}
+
+
+mermaid-element > *{
+}
+
+mermaid-element * {
+	height: 100%;
+	width: 800px;
+}
+
+.graph-textarea {
+	margin: 0px 30px;
+	width: 500px;
+}
