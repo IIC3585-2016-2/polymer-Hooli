@@ -1,6 +1,5 @@
 <!-- Imports polymer -->
 <link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../iron-autogrow-textarea/iron-autogrow-textarea.html">
 
 <!-- Mermaid -->
 <link rel="stylesheet" href="../mermaid/dist/mermaid.css">
@@ -14,23 +13,13 @@ Render diagrams using Mermaid
 
 <dom-module id="mermaid-element">
   <template>
-    <span id="output"></span>
-    <br>
-    <iron-autogrow-textarea value="{{graph::input}}">
-    </iron-autogrow-textarea>
+    <div id="output"></div>
   </template>
 </dom-module>
 
 <!-- Registers custom element -->
 <script>
-  mermaidAPI.initialize({
-    startOnLoad: false,
-  });
-  mermaidAPI.parseError = (err) => {
-    console.log(err);
-    this.$.output.innerHTML = err;
-  }
-
+  const element = document.getElementById('output');
   Polymer({
     is: 'mermaid-element',
     properties: {
@@ -45,22 +34,26 @@ Render diagrams using Mermaid
     },
 
     attached: function() {
+      mermaidAPI.initialize({
+        startOnLoad: false,
+				//cloneCssStyles: true,
+      });
+      mermaidAPI.parseError = (err) => {
+        console.log(err);
+        this.$.output.innerHTML = 'ERROR';
+      }
+
       this.render(this.graph);
     },
 
-    /**
-     * Manually render the formula
-     */
     render: function() {
       if (this.graph === undefined) {
         return;
       }
-
       mermaidAPI.render('output', this.graph.replace('\\n', '\n'),
-          (svgCode) => {
-            console.log(this.$.output)
-            this.$.output.innerHTML = svgCode;
-          });
+					(svgCode) => {
+						this.$.output.innerHTML = svgCode;
+					});
     }
   });
 </script>

@@ -1,0 +1,23 @@
+<!-- Imports polymer -->
+<link rel="stylesheet" href="mermaid-edit.css">
+<link rel="import" href="mermaid-element.html">
+<link rel="import" href="../iron-autogrow-textarea/iron-autogrow-textarea.html">
+
+<dom-module id="mermaid-edit">
+  <template>
+    <textarea class="graph-textarea" value="{{graph::input}}"></textarea>
+    <mermaid-element graph={{graph}}></mermaid-element>
+  </template>
+</dom-module>
+
+<script>
+  Polymer({
+    is: 'mermaid-edit',
+    properties: {
+      graph: {
+        type: String,
+        value: 'graph'
+      },
+    },
+  });
+</script>

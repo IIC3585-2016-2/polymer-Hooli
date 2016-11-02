@@ -1,5 +1,5 @@
 {
-  "name": "hooli-demo",
+  "name": "polymer-Hooli",
   "version": "0.0.0",
   "homepage": "https://github.com/Polymer/element-tutorial",
   "license": "MIT",
@@ -15,6 +15,7 @@
     "iron-icon": "PolymerElements/iron-icon#^1.0.0",
     "iron-icons": "PolymerElements/iron-icons#^1.0.0",
     "mermaid": "^6.0.0",
-    "iron-autogrow-textarea": "PolymerElements/iron-autogrow-textarea#^1.0.14"
+    "iron-autogrow-textarea": "PolymerElements/iron-autogrow-textarea#^1.0.14",
+    "iron-component-page": "^1.1.7"
   }
 }
