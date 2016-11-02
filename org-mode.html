@@ -4,34 +4,35 @@
 
     <template>
         <style>
-         #renderZone ::content * .section-number{
+         #renderZone ::content * .section-number {
              padding-right: 0.5em;
-             }
+         }
         </style>
         <div id="renderZone"></div>
     </template>
 
     <script>
-     Polymer({
-         is: 'org-mode',
-         properties: {
-             text: {
-                 type: String,
-                 observer: 'render'
-             }
-         },
-         render: function(str) {
-             var orgParser = new Org.Parser();
-             var orgDocument = orgParser.parse(str);
-             var orgHTML = orgDocument.convert(Org.ConverterHTML, {
-                 headerOffset: 1,
-                 exportFromLineNumber: false,
-                 suppressSubScriptHandling: false,
-                 suppressAutoLink: false
-             });
-             this.$.renderZone.innerHTML = orgHTML.toString();
-         }
-     });
+        Polymer({
+            is: 'org-mode',
+            properties: {
+                text: {
+                    type: String,
+                    observer: 'render',
+                    value: ''
+                }
+            },
+            render: function(str) {
+                var orgParser = new Org.Parser();
+                var orgDocument = orgParser.parse(str);
+                var orgHTML = orgDocument.convert(Org.ConverterHTML, {
+                    headerOffset: 1,
+                    exportFromLineNumber: false,
+                    suppressSubScriptHandling: false,
+                    suppressAutoLink: false
+                });
+                this.$.renderZone.innerHTML = orgHTML.toString();
+            }
+        });
     </script>
 
 </dom-module>

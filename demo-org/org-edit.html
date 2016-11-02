@@ -1,0 +1,35 @@
+<link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../paper-input/paper-textarea.html">
+<link rel="import" href="../org-mode.html">
+
+<dom-module id="org-edit">
+
+    <style include="iron-flex iron-flex-alignment iron-flex-factors"></style>
+    <template>
+        <style>
+         #main ::content > div {
+             margin: 0 1em;
+         }
+        </style>
+        <div id="main" class="horizontal layout">
+            <div class="flex-3">
+                <paper-textarea label="Write here your Org document" type="text" value={{text::input}}></paper-textarea>
+            </div>
+            <div class="flex-2">
+                <org-mode text={{text}}></org-mode>
+            </div>
+        </div>
+    </template>
+    <script>
+        Polymer({
+            is: 'org-edit',
+            properties: {
+                text: {
+                    type: String,
+                    value: ''
+                }
+            }
+        });
+    </script>
+</dom-module>
